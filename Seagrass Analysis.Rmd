@@ -38,9 +38,10 @@ unique(trannoctab$nsites)
 
 
 #interesting variables 
-#compare year and respective sea grass species and abundance
+#compare year and respective sea grass species and abundance in each respective agency
+#compare abundance of algae vs sea grass abundance in same year, same site 
 #correlation of shoot shoot density and abundance
-#distribution of seagrass species within an area
+#distribution of sea grass species and abundance within an area or monitoring agency
 ```
 
 

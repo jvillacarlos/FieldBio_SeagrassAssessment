@@ -1,0 +1,47 @@
+---
+title: "Seagrass Lab 4"
+author: "Krissa Joy L. Tabornal"
+date: "10/19/2021"
+output: pdf_document
+---
+```{r}
+library(tidyverse)
+```
+
+
+```{r}
+#data import 
+trantab <- read.delim("https://raw.githubusercontent.com/tbep-tech/seagrasstransect/master/docs/trantab.csv", sep=",")
+
+trannoctab <- read.delim("https://raw.githubusercontent.com/tbep-tech/seagrasstransect/master/docs/tranocctab.csv", sep=",")
+```
+
+```{r}
+str(trantab)
+str(trannoctab)
+head(trantab)
+head(trannoctab)
+glimpse(trantab)
+glimpse(trannoctab)
+summary(trantab)
+summary(trannoctab)
+
+unique(trantab$Date)
+unique(trantab$Depth)
+unique(trantab$Savspecies)
+unique(trantab$SeagrassEdge)
+unique(trantab$var)
+
+unique(trannoctab$Date)
+unique(trannoctab$Savspecies)
+unique(trannoctab$nsites)
+
+
+#interesting variables 
+#compare year and respective sea grass species and abundance
+#correlation of shoot shoot density and abundance
+#distribution of seagrass species within an area
+```
+
+
+

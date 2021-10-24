@@ -1,0 +1,66 @@
+---
+title: "Seagrass and Algae Composition"
+author: "Jan Ira Villacarlos"
+date: "10/24/2021"
+output: html_document
+---
+
+```{r}
+library(tidyverse)
+library(ggplot2)
+library(dplyr)
+library(tbeptools)
+```
+
+```{r}
+trantab <- read.delim("https://raw.githubusercontent.com/tbep-tech/seagrasstransect/master/docs/trantab.csv", sep=",")
+
+trannoctab <- read.delim("https://raw.githubusercontent.com/tbep-tech/seagrasstransect/master/docs/tranocctab.csv", sep=",")
+```
+
+```{r}
+names(trannoctab)
+tranSav <- trannoctab %>%
+  select("Transect", "Savspecies")
+
+tranSavsep <- tranSav %>% 
+  separate(Transect, c("Site", "Transect"), "T")
+
+ggplot(tranSavsep, aes(fill=Savspecies, x=Site)) + 
+    geom_bar(position="dodge", stat="count") + theme_classic() 
+
+transSavfreq <- tranSavsep %>%
+  group_by(Transect, Site, Savspecies) %>%
+  summarize(Count=n())
+
+ggplot(transSavfreq, aes(y = Count, x=Savspecies)) + 
+    geom_bar(position="dodge", stat = "identity") +
+    ggtitle("Species Composition per Site") +
+    facet_wrap(~Site) +
+    theme(legend.position="none")
+```
+
+```{r}
+
+trantabnew <- trantab %>% 
+  select(Transect, Savspecies) %>%
+  separate(Transect, c("Site", "Transect"), "T")
+
+composition <- trantabnew %>%
+  group_by(Site,Savspecies) %>%
+  summarize(Count=n())
+
+ggplot(composition, aes(y=Count, x=Savspecies, fill = Savspecies)) +
+    geom_bar(position = "dodge", stat = "identity") +
+    facet_wrap(~Site) + theme_classic() +  theme(axis.text.x = element_blank(),
+    axis.ticks.x = element_blank()) + ggtitle("Species Composition per Site") +      ylab("Count") + xlab("Species") + labs(fill = "Species")
+```
+
+```{r}
+#estimate annual results across major bay segments for all seagrass species by averaging frequency occurrence across sites
+AveOccFreq <- anlz_transectave(trannoctab)
+
+#Summary matrix of seagrass frequency occurrence estimates across all species by bay segment
+show_transectmatrix(trannoctab, neutral = T)
+```
+
